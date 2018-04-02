@@ -1,0 +1,41 @@
+{% extends 'mydashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+	<div class = "container">
+            <div class = "py-5 bg-light py-3 text-center font-weight-light">
+		<div class = "py-3">
+			<h4 class = "font-weight-light">今日实时概览</h4>
+		</div>
+		<div class = "d-flex flex-equal">
+			<div class = "">
+				<p>2240.00</p>
+				<p>实收金额</p>
+			</div>
+			<div class = "">
+				<p>765.00</p>
+				<p>未收金额</p>
+			</div>
+                </div>
+		<div class = "d-flex flex-equal pt-3 pb-1">
+			<div>
+				<p>23</p>
+				<p>订单数</p>
+			</div>
+			<div>
+				<p>2</p>
+				<p>未结订单</p>
+			</div>
+			<div>
+				<p>63</p>
+				<p>就餐人数</p>
+			</div>
+			<div>
+				<p>20</p>
+				<p>正在就餐</p>
+			</div>
+		</div>
+            </div>
+	</div>
+{% endblock%}
+
