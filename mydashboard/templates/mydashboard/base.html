@@ -203,6 +203,8 @@
     <script src="{% static 'mydashboard/js/vendor/popper.min.js' %}"></script>
     <script src="{% static 'mydashboard/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'mydashboard/js/vendor/holder.min.js' %}"></script>
+    {% block load_js %}
+    {% endblock %}
     <script>
       Holder.addTheme('thumb', {
         bg: '#55595c',

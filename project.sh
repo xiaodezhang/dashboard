@@ -12,4 +12,5 @@ mydashboard/templates/mydashboard/employee_management.html \
 mydashboard/templates/mydashboard/res.html \
 mydashboard/templates/mydashboard/settings.html \
 mydashboard/templates/mydashboard/marketing.html \
-mydashboard/static/mydashboard/css/base.css
+mydashboard/static/mydashboard/css/base.css \
+mydashboard/static/mydashboard/js/index.js

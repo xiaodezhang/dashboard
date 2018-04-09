@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-	<div class = "container">
+	<div class = "container-fluid">
             <div class = "py-5 bg-light py-3 text-center font-weight-light">
 		<div class = "py-3">
 			<h4 class = "font-weight-light">今日实时概览</h4>
@@ -36,6 +36,26 @@
 			</div>
 		</div>
             </div>
+
+	    <div class = "d-md-flex py-5 text-center">
+		    <div class = "col-md-4">
+			    <h3>今日销售总额</h3>
+			    <h3>2268.60</h3>
+			    <p>昨日：￥12242.89</p>
+			    <p>下降：87%</p>
+			    <h3>今日销售单数</h3>
+			    <h3>23</h3>
+			    <p>昨日：119笔</p>
+			    <p>下降：87%</p>
+		    </div>
+		    <div class = "col-md-8">
+			    <canvas class = "" id = "myChart"></canvas>
+		    </div>
+	    </div>
 	</div>
+{% endblock%}
+{% block load_js%}
+    <script src="{% static 'mydashboard/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'mydashboard/js/index.js' %}"></script>
 {% endblock%}
 
