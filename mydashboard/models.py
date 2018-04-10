@@ -2,25 +2,32 @@ from django.db import models
 
 # Create your models here.
 
+#人员库
+class people(models.Model):
+    name = models.CharField('姓名',max_length = 150)
+    phone_number = models.CharField('电话',max_length = 11,null = True)
+    sex = models.CharField('性别',max_length = 5,null = True)
+
 #人员基本信息表
 class person(models.Model):
-    name = models.CharField('姓名',max_length = 150,primary_key = True)
-    sex = models.CharField('性别',max_length = 5,null = True)
+    name = models.CharField('姓名',max_length = 150)
     phone_number = models.CharField('电话',max_length = 11,null = True)
+    sex = models.CharField('性别',max_length = 5,null = True)
 
 #服务员信息
 class waiter_info(models.Model):
-    person_info = models.ForeignKey(person,on_delete = models.CASCADE)
+    waiter = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'waiter_info')
+    waiter_number = models.CharField('工号',max_length = 11)
 
 #顾客信息
 class customer_info(models.Model):
-    person_info = models.ForeignKey(person,on_delete = models.CASCADE)
+    customer = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'customer_info')
 
 #区域管理信息
 class area_management(models.Model):
-    area_name = models.CharField('区域',max_length = 50,primary_key = True)
-    area_customers_sum = models.IntegerField('区域容纳人数')
-    desk_number = models.CharField('桌台号',max_length = 50,null = True)
+    area_name = models.CharField('区域',max_length = 50)
+    desk_number = models.CharField('桌台号',max_length = 50)
+    area_customers_sum = models.IntegerField('区域容纳人数',null = True)
 
 #收银终端
 class cash_terminal(models.Model):
@@ -28,11 +35,11 @@ class cash_terminal(models.Model):
 
 #收货人信息
 class receiver_info(models.Model):
-    person_info = models.ForeignKey(person,on_delete = models.CASCADE)
+    receiver = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'receiver_info')
 
 #配送人信息
 class sender_info(models.Model):
-    person_info = models.ForeignKey(person,on_delete = models.CASCADE)
+    sender = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'sender_info')
 
 #配送信息表
 #TODO:address需要新建表
@@ -73,8 +80,7 @@ class diposit(models.Model):
  
 #订单支付信息，订单表的子表
 class order_payment(models.Model):   
-    id = models.CharField(max_length = 200,primary_key = True)
-    payment_method = models.ForeignKey(payment_methods,on_delete = models.CASCADE)
+    payment_method = models.ForeignKey(payment_methods,on_delete = models.CASCADE,related_name = 'order_payment')
     payment_state = models.CharField('支付状态',max_length = 50,null = True)
     order_time = models.DateTimeField('支付时间',null = True)
     should_payment = models.DecimalField('应付金额',max_digits = 8,
@@ -110,12 +116,12 @@ class order_price(models.Model):
 class repast_info(models.Model):
     repast_number = models.IntegerField('就餐人数',null = True)
     repast_type = models.CharField('就餐类型',max_length = 50,null = True)
-    area = models.ForeignKey(area_management,on_delete = models.CASCADE) 
+    area = models.ForeignKey(area_management,on_delete = models.CASCADE,related_name = 'repast_info') 
 
 
 #门店信息
 class store_info(models.Model):
-    name = models.CharField('店面名称',max_length = 200,primary_key = True)
+    name = models.CharField('店面名称',max_length = 200)
 
 #订单列表
 class order_list(models.Model):
@@ -125,34 +131,15 @@ class order_list(models.Model):
     start_time = models.DateTimeField('下单时间',null = True)
     business_time = models.DateField('营业时间',null = True)
     order_source = models.CharField('订单来源',max_length = 100,null = True)
-    waiter = models.ForeignKey(waiter_info,on_delete = models.CASCADE)
-    operator = models.ForeignKey(waiter_info,on_delete = models.CASCADE,related_name = 'operator')
-    customer = models.ForeignKey(customer_info,on_delete = models.CASCADE)
-    cash_terminal = models.ForeignKey(cash_terminal,on_delete = models.CASCADE)
-    receiver = models.ForeignKey(receiver_info,on_delete = models.CASCADE)
-    payment = models.ForeignKey(order_payment,on_delete = models.CASCADE)
-    store = models.ForeignKey(store_info,on_delete = models.CASCADE)
-    diposit = models.ForeignKey(diposit,on_delete = models.CASCADE)
-    repast = models.ForeignKey(repast_info,on_delete = models.CASCADE)
-    shipping_info = models.ForeignKey(shipping_info,on_delete = models.CASCADE)
-    order_price = models.ForeignKey(order_price,on_delete = models.CASCADE)
-
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    waiter = models.ForeignKey(waiter_info,on_delete = models.CASCADE,related_name = 'order_list')
+    operator = models.ForeignKey(waiter_info,on_delete = models.CASCADE,related_name = 'order_list')
+    customer = models.ForeignKey(customer_info,on_delete = models.CASCADE,related_name = 'order_list')
+    cash_terminal = models.ForeignKey(cash_terminal,on_delete = models.CASCADE,related_name = 'order_list')
+    receiver = models.ForeignKey(receiver_info,on_delete = models.CASCADE,related_name = 'order_list')
+    payment = models.ForeignKey(order_payment,on_delete = models.CASCADE,related_name = 'order_list')
+    store = models.ForeignKey(store_info,on_delete = models.CASCADE,related_name = 'order_list')
+    diposit = models.ForeignKey(diposit,on_delete = models.CASCADE,related_name = 'order_list')
+    repast = models.ForeignKey(repast_info,on_delete = models.CASCADE,related_name = 'order_list')
+    shipping_info = models.ForeignKey(shipping_info,on_delete = models.CASCADE,related_name = 'order_list')
+    order_price = models.ForeignKey(order_price,on_delete = models.CASCADE,related_name = 'order_list')
 

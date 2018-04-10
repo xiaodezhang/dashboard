@@ -41,3 +41,7 @@ Thumbs.db
 *~
 *swp
 *pyc
+mydashboard/__pycache__/*
+mydashboard/migrations/*
+*.swn
+*.swm

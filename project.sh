@@ -1,4 +1,5 @@
 vim \
+import.py \
 mysite/settings.py \
 mysite/urls.py mydashboard/urls.py \
 mydashboard/views.py \
