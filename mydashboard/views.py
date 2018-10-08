@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.views.decorators.csrf import csrf_protect
-#from .models import order_list
+from .models import order_list
 import datetime
 
 # Create your views here.
@@ -30,8 +30,8 @@ def signin(request):
 
 def index(request):
     if request.user.is_authenticated:
-        actual_get = order_list.objects.filter(business_time = datetime.date(2017,12,26))
-        print(actual_get[0].actual_get)
+#        actual_get = order_list.objects.filter(business_time = datetime.date(2017,12,26))
+#        print(actual_get[0].actual_get)
 #        context = {'actual_get':actual_get}
         return render(request,'mydashboard/index.html')
     else:

@@ -19,6 +19,12 @@ class waiter_info(models.Model):
     waiter = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'waiter_info')
     waiter_number = models.CharField('工号',max_length = 11)
 
+#收银员信息
+class operator_info(models.Model):
+    waiter = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'operator_info')
+    waiter_number = models.CharField('工号',max_length = 11)
+
+
 #顾客信息
 class customer_info(models.Model):
     customer = models.ForeignKey(person,on_delete = models.CASCADE,related_name = 'customer_info')
@@ -51,19 +57,21 @@ class shipping_info(models.Model):
 #支付方式表
 class payment_methods(models.Model):
     boss_consumption = models.DecimalField('老板消费',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
     coupon = models.DecimalField('优惠券',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
     stored_value_card = models.DecimalField('储值卡',max_digits = 8,
-            decimal_places = 2,null = True)
+            decimal_places = 2,default = 0)
     landlady_consumption = models.DecimalField('老板娘消费',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
     weixin = models.DecimalField('微信',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
+    zhifubao = models.DecimalField('支付宝',max_digits = 8,
+           decimal_places = 2,default = 0) 
     bank_card = models.DecimalField('银行卡',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
     cash = models.DecimalField('现金',max_digits = 8,
-           decimal_places = 2,null = True) 
+           decimal_places = 2,default = 0) 
 
 #押金表,订单的子表
 class diposit(models.Model):
@@ -82,11 +90,7 @@ class diposit(models.Model):
 class order_payment(models.Model):   
     payment_method = models.ForeignKey(payment_methods,on_delete = models.CASCADE,related_name = 'order_payment')
     payment_state = models.CharField('支付状态',max_length = 50,null = True)
-    order_time = models.DateTimeField('支付时间',null = True)
-    should_payment = models.DecimalField('应付金额',max_digits = 8,
-           decimal_places = 2,null = True) 
-    actual_payment = models.DecimalField('实付金额',max_digits = 8,
-           decimal_places = 2,null = True) 
+    payment_time = models.DateTimeField('支付时间',null = True)
     should_get = models.DecimalField('应收金额',max_digits = 8,
            decimal_places = 2,null = True) 
     actual_get = models.DecimalField('实收金额',max_digits = 8,
@@ -94,8 +98,6 @@ class order_payment(models.Model):
     refunds = models.DecimalField('退款',max_digits = 8,
            decimal_places = 2,null = True) 
     payment_over = models.DecimalField('支付溢收',max_digits = 8,
-           decimal_places = 2,null = True) 
-    over_summary = models.DecimalField('损溢小计',max_digits = 8,
            decimal_places = 2,null = True) 
 
 #订单价格，订单表的子表
@@ -132,7 +134,7 @@ class order_list(models.Model):
     business_time = models.DateField('营业时间',null = True)
     order_source = models.CharField('订单来源',max_length = 100,null = True)
     waiter = models.ForeignKey(waiter_info,on_delete = models.CASCADE,related_name = 'order_list')
-    operator = models.ForeignKey(waiter_info,on_delete = models.CASCADE,related_name = 'order_list')
+    operator = models.ForeignKey(operator_info,on_delete = models.CASCADE,related_name = 'order_list')
     customer = models.ForeignKey(customer_info,on_delete = models.CASCADE,related_name = 'order_list')
     cash_terminal = models.ForeignKey(cash_terminal,on_delete = models.CASCADE,related_name = 'order_list')
     receiver = models.ForeignKey(receiver_info,on_delete = models.CASCADE,related_name = 'order_list')

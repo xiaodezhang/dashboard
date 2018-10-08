@@ -45,3 +45,4 @@ mydashboard/__pycache__/*
 mydashboard/migrations/*
 *.swn
 *.swm
+*.pyc

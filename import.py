@@ -1,10 +1,12 @@
-from mydashboard.models import person,people,waiter_info,area_management,cash_terminal,
-     shipping_info
+#######################################################################
+#后台数据生成脚本
+#运行方式为 ./manage.py shell < import.py(见virtual_data_import.sh)
+#####################################################################
+from mydashboard.models import person,people,waiter_info,area_management,cash_terminal
             
 import random
 import re
 
-"""
 people_name = []
 with open('people_name.txt','rt') as f:
     data = re.split(',|\n',f.read())
@@ -16,7 +18,6 @@ for name in people_name:
     aperson = people(name = name,phone_number = random.randrange(12100000000,18900000000),sex = random.choice(['fe','male']))
     aperson.save()
 
-"""
 
 """
 people_name = []

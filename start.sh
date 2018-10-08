@@ -1,1 +1,1 @@
-./manage.py runserver 0.0.0.0:8889
+./manage.py runserver 0.0.0.0:8000
